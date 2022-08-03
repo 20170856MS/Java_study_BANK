@@ -25,6 +25,7 @@ public class BankMembersTest {
 			ArrayList<BankMembersDTO> ar = bankMembersDAO.getSearchByID("D");
 			System.out.println(ar.size()>0); //true면 값이 있음, false면 값이 없음
 			
+			System.out.println(ar.size());
 			for(int i=0;i<ar.size();i++) {
 				System.out.println(ar);
 			}
