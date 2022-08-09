@@ -3,6 +3,8 @@ package com.iu.start.bankBook;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 
 import com.iu.start.util.DBConnector;
@@ -21,8 +23,22 @@ public class BankBookDAO {
 		
 		//5.최종전송 및 결과처리
 		int result = st.executeUpdate();
+		ResultSet rs = st.executeQuery();
+		
+		//사용할 zone 아이디 값 입니다.
+        ZoneId zoneid = ZoneId.of("Asia/Seoul");
+
+        //#1. 현재 시간의 값 밀리세컨드 변환
+        long date = LocalDateTime.now().atZone(zoneid).toInstant().toEpochMilli();
+		
+        
 		BankBookDTO bankbookDTO = new BankBookDTO();
-		bankbookDTO.getBookName();
+		bankbookDTO.setBookNum(date);
+		bankbookDTO.setBookName(rs.getString("BookName"));
+		bankbookDTO.setBookRate(rs.getDouble("BookRate"));
+		bankbookDTO.setBookSale(1);
+		
+		
 		//6.자원해제
 		DBConnector.disConnect(st, con);
 		
