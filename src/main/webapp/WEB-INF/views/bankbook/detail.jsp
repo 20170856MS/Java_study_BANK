@@ -1,7 +1,10 @@
 <%@page import="com.iu.start.bankBook.BankBookDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% 	BankBookDTO bankBookDTO = (BankBookDTO)request.getAttribute("DTO"); %>
+<%-- 	
+	//요청이 발생하면 생성, 응답이 나가면 소멸 : RequestScope
+	BankBookDTO bankBookDTO = (BankBookDTO)request.getAttribute("DTO"); 
+--%>
     
 <!DOCTYPE html>
 <html>
@@ -18,30 +21,21 @@
 	<a href="/member/join">Join</a>
 	<a href="./list">리스트보기</a>
 	
-	
-	<% if(bankBookDTO != null){ %>
 	<table border="1">
-		<thead>
-			<tr>
-				<th>Num</th><th>Name</th><th>Rate</th><th>Sale</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td><%= bankBookDTO.getBookNum() %></td>
-				<td><%= bankBookDTO.getBookName() %></td>
-				<td><%= bankBookDTO.getBookRate() %></td>
-				<td><% if(bankBookDTO.getBookSale()==1){ %>
-						판매중
-					<%}else if(bankBookDTO.getBookSale()==0){ %>
-						판매금지
-					<%} %>
-				</td>
-			</tr>
-		</tbody>
+		<tr>
+			<th>Num</th>
+			<th>Name</th>
+			<th>Rate</th>
+			<th>Sale</th>
+		</tr>
+		<tr>
+			<td>${requestScope.bankBookDTO.getBookName()}</td>
+			<td>${requestScope.bankBookDTO.bookName}</td>
+			<td>${bankBookDTO.bookRate}</td> <%--requesteScope.dto.getBookRate --%>
+			<td>${bankBookDTO.bookSale}</td>
+		</tr>
 	</table>
-	<%}else{ %>
-		<h3>데이터 없음</h3>
-	<%} %>
+	<a href="./update?bookNum=${bankBookDTO.bookNum}">수정</a>
+	<a href="./delete?bookNum=${bankBookDTO.bookNum}">삭제</a>
 </body>
 </html>

@@ -25,10 +25,14 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "login", method = RequestMethod.POST)
-	public String login(BankMembersDTO bankMembersDTO) {
-		System.out.println("DBd에 로그인 실행");
+	public String login(BankMembersDTO bankMembersDTO, Model model) throws Exception {
+		System.out.println("DB에 로그인 실행");
+		BankMembersDAO bankMembersDAO = new BankMembersDAO();
+		bankMembersDTO = bankMembersDAO.getLogin(bankMembersDTO);
+		System.out.println(bankMembersDTO); //로그인 됬는지 확인
+		model.addAttribute("member", bankMembersDTO);
 		// "redirect:다시접속할URL주소(절대경로,상대경로)"
-		return "redirect:../";
+		return "home";
 	}
 	
 	//join  /member/join       절대경로 작성
@@ -46,13 +50,6 @@ public class MemberController {
 		BankMembersDAO bankMembersDAO = new BankMembersDAO();
 		BankMembersDTO bankMembersDTO = new BankMembersDTO();
 		
-		String username = request.getParameter("username");
-		bankMembersDTO.setUsername(username);
-		bankMembersDTO.setPassword(request.getParameter("password"));
-		bankMembersDTO.setName(request.getParameter("name"));
-		bankMembersDTO.setEmail(request.getParameter("email"));
-		bankMembersDTO.setPhone(request.getParameter("phone"));
-		
 		int result = bankMembersDAO.setJoin(bankMembersDTO);
 		System.out.println(result==1);
 		return "redirect:./login";
@@ -68,23 +65,10 @@ public class MemberController {
 
 	@RequestMapping(value = "search", method = RequestMethod.POST)
 	public String getSearchByID(String search, Model model)throws Exception{
-//		BankMembersDAO bankMembersDAO = new BankMembersDAO();
-//		ArrayList<BankMembersDTO> ar= bankMembersDAO.getSearchByID(search);
-
-		ArrayList<BankMembersDTO> ar = new ArrayList<BankMembersDTO>();
-
+		BankMembersDAO bankMembersDAO = new BankMembersDAO();
+		ArrayList<BankMembersDTO> ar= bankMembersDAO.getSearchByID(search);
 		model.addAttribute("list", ar);
 		return "member/list";
-	}
-	//post
-	@RequestMapping(value = "join", method = RequestMethod.POST)
-	public String join(BankMembersDTO bankMembersDTO) throws Exception {
-		System.out.println("JOIN POST 실행");
-		BankMembersDAO bankMembersDAO = new BankMembersDAO();
-		
-		int result = bankMembersDAO.setJoin(bankMembersDTO);
-		System.out.println(result==1);
-		return "member/join";
 	}
 
 }

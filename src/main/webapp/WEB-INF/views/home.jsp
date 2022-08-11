@@ -13,8 +13,18 @@
 
 <P>  The time on the server is ${serverTime}. </P>
 
-<a href ="./member/login">Login</a>
-<a href="./member/join">Join</a>
+<c:if test="${empty member}">
+<%--member eq null --%>
+	<a href ="./member/login">Login</a>
+	<a href="./member/join">Join</a>
+</c:if>
+
+<c:if test="${not empty member}">
+<%-- member ne null --%>
+	<a href="#">Logout</a>
+	<a href="#">MyPage</a>
+</c:if>
+
 <a href="./bankbook/list">상품리스트</a>
 </body>
 </html>

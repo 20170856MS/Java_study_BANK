@@ -19,4 +19,7 @@ public interface BookDAO {
 	public BankBookDTO getDetail(BankBookDTO bankBookDTO) throws Exception;
 	
 	
+	public int setUpdate(BankBookDTO bankBookDTO) throws Exception;
+	
+	
 }

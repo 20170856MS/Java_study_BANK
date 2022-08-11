@@ -12,16 +12,53 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping(value = "/bankbook/*")
 public class BankBookController {
 	
+	@RequestMapping(value = "delete", method = RequestMethod.GET)
+	public ModelAndView delete(BankBookDTO bankBookDTO) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		BankBookDAO bankBookDAO = new BankBookDAO();
+		
+		System.out.println(bankBookDTO.getBookNum());
+		
+		int result = bankBookDAO.setDelete(bankBookDTO);
+		mv.setViewName("redirect:./list");
+		return mv;
+	}
+	
+	
+	
+	@RequestMapping(value="update", method = RequestMethod.GET)
+	public void update (BankBookDTO bankBookDTO, Model model) throws Exception{
+		System.out.println("update GET 실행");
+		BankBookDAO bankBookDAO = new BankBookDAO();
+		System.out.println(bankBookDTO.getBookNum());
+		bankBookDTO = bankBookDAO.getDetail(bankBookDTO);
+		model.addAttribute("bankBookDTO", bankBookDTO);
+			
+	}
+	
+	
+	@RequestMapping(value="update", method = RequestMethod.POST)
+	public String update (BankBookDTO bankBookDTO) throws Exception{
+		System.out.println("update POST 실행");
+		BankBookDAO bankBookDAO = new BankBookDAO();
+		int result = bankBookDAO.setUpdate(bankBookDTO);
+		
+		return "redirect:./detail?bookNum="+bankBookDTO.getBookNum();
+	}
+	
+	
 	// /bankbook/add POST
 		// name, rate
 		@RequestMapping(value="add", method=RequestMethod.POST)
 		public ModelAndView add(BankBookDTO bankBookDTO)throws Exception{
 			ModelAndView mv = new ModelAndView();
+			BankBookDAO bankBookDAO = new BankBookDAO();
+			System.out.println("add POST 실행");
+			int result = bankBookDAO.setBankBook(bankBookDTO);
+
+			
 			System.out.println(bankBookDTO.getBookName());
 			System.out.println(bankBookDTO.getBookRate());
-			BankBookDAO bankBookDAO = new BankBookDAO();
-			//int result = bankBookDAO.setBankBook(bankBookDTO);
-			
 			//등록후 list 페이지로 이동
 			mv.setViewName("redirect:./list");
 			
@@ -37,7 +74,7 @@ public class BankBookController {
 		
 		@RequestMapping(value="list", method=RequestMethod.GET)
 		public String list(Model model) throws Exception {
-			ModelAndView mv = new ModelAndView();
+			//ModelAndView mv = new ModelAndView();
 			System.out.println("list 실행");
 			BankBookDAO bankBookDAO = new BankBookDAO();
 			//DB 없으신 분들
@@ -48,13 +85,17 @@ public class BankBookController {
 		}
 		
 		@RequestMapping(value = "detail", method = RequestMethod.GET)
-		public String detail(BankBookDTO bankBookDTO) throws Exception {
+		public ModelAndView detail(BankBookDTO bankBookDTO) throws Exception {
 			ModelAndView mv = new ModelAndView();
 			System.out.println("detail 실행");
 			
 			BankBookDAO bankBookDAO = new BankBookDAO();
 			bankBookDTO = bankBookDAO.getDetail(bankBookDTO);
-			return "bankbook/detail";
+			
+			mv.setViewName("bankbook/detail");
+			mv.addObject("bankBookDTO", bankBookDTO);
+			
+			return mv;
 			
 		}
 	
