@@ -38,6 +38,6 @@
 		</tbody>
 	</table>
 	
-	<a href="./detail">BankBook Detail</a>
+	<a href="./add">상품 등록</a>
 </body>
 </html>

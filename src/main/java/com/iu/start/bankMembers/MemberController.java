@@ -1,8 +1,11 @@
 package com.iu.start.bankMembers;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,11 +17,18 @@ public class MemberController {
 	// annotation  @:설명+실행
 	
 	//	/member/login 실행해야하는 메서드
-	@RequestMapping(value = "/member/login")
+	@RequestMapping(value = "login", method = RequestMethod.GET)
 	public String login() {
 		System.out.println("로그인 실행");
 		
 		return "member/login";
+	}
+	
+	@RequestMapping(value = "login", method = RequestMethod.POST)
+	public String login(BankMembersDTO bankMembersDTO) {
+		System.out.println("DBd에 로그인 실행");
+		// "redirect:다시접속할URL주소(절대경로,상대경로)"
+		return "redirect:../";
 	}
 	
 	//join  /member/join       절대경로 작성
@@ -45,18 +55,36 @@ public class MemberController {
 		
 		int result = bankMembersDAO.setJoin(bankMembersDTO);
 		System.out.println(result==1);
-		return "member/join";
+		return "redirect:./login";
+		
 	}
 	
-	//post
-//	@RequestMapping(value = "join", method = RequestMethod.POST)
-//	public String join(BankMembersDTO bankMembersDTO) throws Exception {
-//		System.out.println("JOIN POST 실행");
+	@RequestMapping(value="search", method=RequestMethod.GET)
+	public void getSearchByID()throws Exception{
+		//ModelAndView mv = new ModelAndView();
+		//mv.setViewName("member/search");
+		//return mv;//"member/search";
+	}
+
+	@RequestMapping(value = "search", method = RequestMethod.POST)
+	public String getSearchByID(String search, Model model)throws Exception{
 //		BankMembersDAO bankMembersDAO = new BankMembersDAO();
+//		ArrayList<BankMembersDTO> ar= bankMembersDAO.getSearchByID(search);
+
+		ArrayList<BankMembersDTO> ar = new ArrayList<BankMembersDTO>();
+
+		model.addAttribute("list", ar);
+		return "member/list";
+	}
+	//post
+	@RequestMapping(value = "join", method = RequestMethod.POST)
+	public String join(BankMembersDTO bankMembersDTO) throws Exception {
+		System.out.println("JOIN POST 실행");
+		BankMembersDAO bankMembersDAO = new BankMembersDAO();
 		
-//		int result = bankMembersDAO.setJoin(bankMembersDTO);
-//		System.out.println(result==1);
-//		return "member/join";
-//	}
+		int result = bankMembersDAO.setJoin(bankMembersDTO);
+		System.out.println(result==1);
+		return "member/join";
+	}
 
 }

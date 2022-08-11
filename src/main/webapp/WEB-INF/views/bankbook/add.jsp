@@ -9,13 +9,21 @@
 <body>
 	<h1>Add Page</h1>
 	<hr>
-	<div>
-		<form action="./add" method = "post">
-			책번호<input type="number" value ="booknum"><hr>
-			책이름<input type="text" value ="bookname"><hr>
-			<input type="submit" value="등록">
-        	<input type="reset" value="초기화">
-		</form>
-	</div>
+
+	<form action="./add" method="post">
+		<div>
+			Name : <input type="text" name="bookName">
+		</div>
+		<div>
+			Rate : <input type="text" name="bookRate">
+		</div>
+
+		<div>
+			<input type="submit" value="Create">
+			<button type="submit">Add</button>
+		</div>
+
+	</form>
+
 </body>
 </html>
