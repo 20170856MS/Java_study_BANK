@@ -10,7 +10,7 @@
 	<h1>Login Page</h1>
 	<hr>
     <div>
-  	  <form action="./login" method="post">
+  	  <form action="./login.iu" method="post">
         아이디 <input type="text" name="username"> <br>
         비밀번호 <input type="password" name="password">  <br>
         <input type="submit" value="로그인">

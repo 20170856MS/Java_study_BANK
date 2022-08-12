@@ -31,7 +31,7 @@
 		</tbody>
 	</table>
 	
-	<form action="/bankbook/update" method=post>
+	<form action="/bankbook/update.iu" method=post>
 	
 		<input type="hidden" name="bookNum" readonly="readonly" value="${bankBookDTO.bookNum}}">
 		<div>

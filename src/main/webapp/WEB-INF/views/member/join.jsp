@@ -10,7 +10,7 @@
 	<h1>Join Page</h1>>
 	<hr>
     <div>
-   	 <form action="./join" method="post">
+   	 <form action="join.iu" method="post">
    		 <div class = "container">
        		아이디 <input type="text" name ="username" > <br>
    	    	비밀번호 <input type="password" name = "password" > <br>

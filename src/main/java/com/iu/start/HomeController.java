@@ -31,6 +31,7 @@ public class HomeController { //POJO기반
 		Cookie cookie = new Cookie("hi", "hello");
 		cookie.setMaxAge(600);
 		response.addCookie(cookie);
+		
 		return "home";
 	}
 	
