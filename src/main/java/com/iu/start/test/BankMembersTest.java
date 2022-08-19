@@ -18,23 +18,19 @@ public class BankMembersTest {
 		//bankMembersDTO.setEmail("DDD");
 		//bankMembersDTO.setPhone("0104444");
 		
-		int result;
-		try {
-			//result = bankMembersDAO.setJoin(bankMembersDTO);
-			//System.out.println(result == 1);
-			ArrayList<BankMembersDTO> ar = bankMembersDAO.getSearchByID("D");
-			System.out.println(ar.size()>0); //true면 값이 있음, false면 값이 없음
-			
-			System.out.println(ar.size());
-			for(int i=0;i<ar.size();i++) {
-				System.out.println(ar);
-			}
-			
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		/*
+		 * int result; try { //result = bankMembersDAO.setJoin(bankMembersDTO);
+		 * //System.out.println(result == 1); ArrayList<BankMembersDTO> ar =
+		 * bankMembersDAO.getSearchByID("D"); System.out.println(ar.size()>0); //true면
+		 * 값이 있음, false면 값이 없음
+		 * 
+		 * System.out.println(ar.size()); for(int i=0;i<ar.size();i++) {
+		 * System.out.println(ar); }
+		 * 
+		 * 
+		 * } catch (Exception e) { // TODO Auto-generated catch block
+		 * e.printStackTrace(); }
+		 */
 		
 	}
 

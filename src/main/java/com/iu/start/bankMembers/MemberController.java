@@ -1,10 +1,12 @@
 package com.iu.start.bankMembers;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,6 +18,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class MemberController {
 	
 	// annotation  @:설명+실행
+	@Autowired
+	private BankMembersService bankMembersService;
+	
 	
 	//	/member/login 실행해야하는 메서드
 	@RequestMapping(value = "login.iu", method = RequestMethod.GET)
@@ -28,8 +33,7 @@ public class MemberController {
 	@RequestMapping(value = "login.iu", method = RequestMethod.POST)
 	public String login(HttpSession session,BankMembersDTO bankMembersDTO, Model model) throws Exception {
 		System.out.println("DB에 로그인 실행");
-		BankMembersDAO bankMembersDAO = new BankMembersDAO();
-		bankMembersDTO = bankMembersDAO.getLogin(bankMembersDTO);
+		bankMembersDTO = bankMembersService.getLogin(bankMembersDTO);
 		System.out.println(bankMembersDTO); //로그인 됬는지 확인
 		model.addAttribute("member", bankMembersDTO);
 		//HttpSession session = request.getSession();
@@ -68,8 +72,7 @@ public class MemberController {
 
 	@RequestMapping(value = "search.iu", method = RequestMethod.POST)
 	public String getSearchByID(String search, Model model)throws Exception{
-		BankMembersDAO bankMembersDAO = new BankMembersDAO();
-		ArrayList<BankMembersDTO> ar= bankMembersDAO.getSearchByID(search);
+		List<BankMembersDTO> ar= bankMembersService.getSearchByID(search);
 		model.addAttribute("list", ar);
 		return "member/list";
 	}
